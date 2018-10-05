@@ -1,13 +1,15 @@
 FROM node:alpine
 
-COPY . /app
-WORKDIR /app
+
+WORKDIR /code
+
+COPY package*.json /code/
+COPY yarn.lock /code/
 
 RUN yarn install
 
-ENV NODE_ENV=production
+COPY . /code/
+
 RUN yarn build
 
-ENV HOST 0.0.0.0
 EXPOSE 3000
-CMD ["yarn", "start"]
